@@ -1,12 +1,12 @@
 import React from 'react'
-import { connectToDatabase } from './lib/db'
+import Hero from '@/app/components/Hero'
 
 function page() {
-  connectToDatabase().then((conn) => {console.log(conn);
-  }).catch((err) => {console.log(err);
-  });
+  
   return (
-    <div className='w-full h-screen'>page</div>
+    <div className='w-full h-screen'>
+      <Hero />
+    </div>
   )
 }
 
