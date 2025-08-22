@@ -1,14 +1,33 @@
 'use client'
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useNotification } from "./Notification";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+    const router = useRouter();
+     const { showNotification } = useNotification();
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     console.log("Login with:", { email, password });
     // Add backend integration here
+      const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+     if (result?.error) {
+      showNotification(result.error, "error");
+    } else {
+      showNotification("Login successful!", "success");
+      router.push("/");
+    }
+
   };
 
   return (
