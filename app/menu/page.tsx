@@ -1,5 +1,7 @@
 'use client'
 import { useSession } from "next-auth/react";
+import Test from "@/app/components/Test"
+import UploadExample from "@/app/components/FileUpload"
 
 const MyComponent = () => {
   const { data: session, status } = useSession();
@@ -22,6 +24,11 @@ const MyComponent = () => {
       <h1>Welcome, {user?.email}</h1>
       <p>Your role is: {user?.role}</p>
       <p>Your user ID is: {user?.id}</p>
+
+      <div>
+        <Test />
+        <UploadExample />
+      </div>
     </div>
   );
 };

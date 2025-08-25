@@ -8,7 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@imagekit/next": "^2.1.2",
     "bcryptjs": "^3.0.2",
+    "imagekit": "^6.0.0",
     "lucide-react": "^0.541.0",
     "mongoose": "^8.17.2",
     "next": "15.5.0",
