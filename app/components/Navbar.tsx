@@ -41,6 +41,8 @@ const Navbar = () => {
           <a href="/" className="navbar-item hover:text-tertiary">Home</a>
           <a href="/about" className="navbar-item hover:text-tertiary">About</a>
           <a href="/menu" className="navbar-item hover:text-tertiary">Menu</a>
+          <a href="/cart" className="navbar-item hover:text-tertiary">Cart</a>
+
           <a href="/signin" className="navbar-item hover:text-tertiary">Sign In</a>
         </div>
       </div>
@@ -60,9 +62,13 @@ const Navbar = () => {
         <a href="/menu" className="navbar-item text-white hover:text-tertiary">
           Menu
         </a>
+        <a href="/cart" className="navbar-item text-white hover:text-tertiary">
+          Cart
+                  </a>
         <a href="/signin" className="navbar-item text-white hover:text-tertiary">
           Sign In
         </a>
+
       </div>
     </nav>
   );

@@ -25,12 +25,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
+           
           <Providers>
+         
         <div className="bg-primary w-full min-h-screen p-5 border-8 border-secondary rounded-lg">
           {/* Navbar */}
           <Navbar />
@@ -42,7 +49,6 @@ export default function RootLayout({
           <Footer />
         </div>
         </Providers>
-
       </body>
     </html>
   );

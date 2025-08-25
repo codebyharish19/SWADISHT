@@ -1,26 +1,42 @@
 'use client'
 import { useSession } from "next-auth/react";
-import Test from "@/app/components/Test"
-import UploadExample from "@/app/components/FileUpload"
-import UploadAndCreateProduct from '../components/UploadAndCreateProduct '
-import CreateProduct from "../components/CreateProduct";
-
-
+import { useEffect, useState } from "react";
+import type { IProduct } from "@/models/Product";
+import ProductDisplay from "../components/ProductDisplay";
+import { useCartContext } from "@/context/CartContext";
 const MyComponent = () => {
   const { data: session, status } = useSession();
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Check if the session is loading
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
+  const { addToCart, removeFromCart , cartItems, totalPrice, clearCart } = useCartContext();
+  
 
-  // If there's no session, redirect or show login message
-  if (!session) {
-    return <div>You are not logged in. Please log in.</div>;
-  }
+  useEffect(() => {
+    if (session) {
+      const fetchProducts = async () => {
+        try {
+          const res = await fetch("/api/products");
+          if (!res.ok) throw new Error("Failed to fetch products");
 
-  // Access session data
-  const { user } = session;  // user will include the role and id you added in the custom session
+          const data: IProduct[] = await res.json();
+          setProducts(data);
+        } catch (err: any) {
+          setError(err.message);
+        } finally {
+          setLoadingProducts(false);
+        }
+      };
+
+      fetchProducts();
+    }
+  }, [session]);
+
+  if (status === "loading") return <div>Loading...</div>;
+  if (!session) return <div>You are not logged in. Please log in.</div>;
+
+  const { user } = session;
 
   return (
     <div>
@@ -28,11 +44,14 @@ const MyComponent = () => {
       <p>Your role is: {user?.role}</p>
       <p>Your user ID is: {user?.id}</p>
 
-      <div>
-       <Test />
-       {/* <UploadExample /> */}
-       <UploadAndCreateProduct />
-      
+      <div className="mt-4">
+        <h2 className="text-xl font-semibold">Products</h2>
+          <ProductDisplay products={products} />
+
+        {loadingProducts && <p>Loading products...</p>}
+        {error && <p className="text-red-500">{error}</p>}
+
+       
       </div>
     </div>
   );
