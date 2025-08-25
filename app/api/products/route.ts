@@ -34,8 +34,25 @@ export async function POST(request: NextRequest) {
 
     await connectToDatabase();
     const body: IProduct = await request.json();
-    if( !body.name || !body.description || !body.price || !body.imageUrl || !body.category) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+     // Check for each required field separately
+    if (!body.name) {
+      return NextResponse.json({ error: "Product name is required" }, { status: 400 });
+    }
+
+    if (!body.description) {
+      return NextResponse.json({ error: "Product description is required" }, { status: 400 });
+    }
+
+    if (!body.price) {
+      return NextResponse.json({ error: "Product price is required" }, { status: 400 });
+    }
+
+    if (!body.imageUrl) {
+      return NextResponse.json({ error: "Product image URL is required" }, { status: 400 });
+    }
+
+    if (!body.category) {
+      return NextResponse.json({ error: "Product category is required" }, { status: 400 });
     }
 
     const product = await Product.create(body);

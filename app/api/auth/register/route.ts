@@ -24,15 +24,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await User.create({
+    const user = await User.create({
       email,
       password,
       role: "user", // Default role
     });
 
     return NextResponse.json(
-      { message: "User registered successfully" },
-      { status: 201 }
+      { message: "User registered successfully", user },
+      { status: 201 },
+      
     );
   } catch (error) {
     console.error("Registration error:", error);

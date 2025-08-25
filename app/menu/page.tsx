@@ -2,6 +2,9 @@
 import { useSession } from "next-auth/react";
 import Test from "@/app/components/Test"
 import UploadExample from "@/app/components/FileUpload"
+import UploadAndCreateProduct from '../components/UploadAndCreateProduct '
+import CreateProduct from "../components/CreateProduct";
+
 
 const MyComponent = () => {
   const { data: session, status } = useSession();
@@ -26,8 +29,10 @@ const MyComponent = () => {
       <p>Your user ID is: {user?.id}</p>
 
       <div>
-        <Test />
-        <UploadExample />
+       <Test />
+       {/* <UploadExample /> */}
+       <UploadAndCreateProduct />
+      
       </div>
     </div>
   );

@@ -8,8 +8,10 @@ import {
   upload,
 } from "@imagekit/next";
 import { useRef, useState } from "react";
+import CreateProduct from "./CreateProduct";
 
 const UploadExample = () => {
+const [urlofProduct, seturlofProduct] = useState("");
   const [progress, setProgress] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const abortController = new AbortController();
@@ -63,6 +65,11 @@ const UploadExample = () => {
         },
         abortSignal: abortController.signal,
       });
+      const { url } = uploadResponse;
+      seturlofProduct(url as string);
+      console.log("Uploaded file URL:", urlofProduct);
+      
+      
       console.log("Upload response:", uploadResponse);
       alert("File uploaded successfully!");
     } catch (error) {
@@ -114,6 +121,8 @@ const UploadExample = () => {
             {progress.toFixed(0)}%
           </p>
         </div>
+              <CreateProduct imageUrl={urlofProduct} />
+
       </div>
     </div>
   );

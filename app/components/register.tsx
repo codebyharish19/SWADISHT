@@ -9,6 +9,17 @@ const Register = () => {
     e.preventDefault();
     console.log("Register with:", { email, password });
     // Add backend integration here
+
+    fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
   };
 
   return (
